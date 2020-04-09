@@ -14,7 +14,10 @@
                 <li class="border-t py-1 {{ $class ?? '' }}">
                     <div class="grid grid-cols-3">
                         <span>{{ $element[0] }}</span>
-                        @if (isset($date_end) && ($element[2] <= strtotime($date_end)))
+
+                        @php $date = date('Y-m-d', $element[2]); @endphp
+
+                        @if (isset($date_end) && (strtotime($date) <= strtotime($date_end)))
                             <span>
                                 @if ($class != "")
                                     {{ $title ?? "" }}

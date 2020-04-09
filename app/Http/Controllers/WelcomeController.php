@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class WelcomeController extends Controller
@@ -13,6 +14,16 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        $user_id = 1;
+        $event = Event::where('user_id', $user_id)->first();
+
+        $data = [];
+
+        if (!is_null($event)) {
+            $data = $event->toArray();
+            $data['days'] = json_decode($event['days'], true);
+        }
+
+        return view('welcome')->with(compact('data'));
     }
 }
